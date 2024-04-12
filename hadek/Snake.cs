@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace hadek
+﻿namespace hadek
 {
     internal class Snake
     {
@@ -29,23 +23,23 @@ namespace hadek
             Console.Write("■");
         }
 
-        public bool MoveAndCheckIfDead(int screenWidth, int screenHeight, string movement, int score)
+        public bool MoveAndCheckIfDead(int screenWidth, int screenHeight, Direction movement, int score)
         {
             bool gameOver = false;
             m_xBody.Add(Head.XPos);
             m_yBody.Add(Head.YPos);
             switch (movement)
             {
-                case "UP":
+                case Direction.Up:
                     Head.YPos--;
                     break;
-                case "DOWN":
+                case Direction.Down:
                     Head.YPos++;
                     break;
-                case "LEFT":
+                case Direction.Left:
                     Head.XPos--;
                     break;
-                case "RIGHT":
+                case Direction.Right:
                     Head.XPos++;
                     break;
             }

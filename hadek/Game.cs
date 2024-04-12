@@ -1,13 +1,6 @@
-﻿using Snake;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace hadek
+﻿namespace hadek
 {
-    public class Game
+    public class Games
     {
         public Game()
         {
@@ -22,9 +15,9 @@ namespace hadek
         {
             DateTime time = DateTime.Now;
             DateTime time2 = DateTime.Now;
-            string buttonPressed = "no";
-            while (true)
+            while (!m_gameOver)
             {
+                Console.Clear();
                 DrawBorders();
                 m_snake.Draw();
                 if (m_berry.DrawAndCheckIfEaten(m_snake.Head, m_screenWidth, m_screenHeight))
@@ -32,7 +25,7 @@ namespace hadek
                     m_score++;
                 }
                 time = DateTime.Now;
-                buttonPressed = "no";
+                m_buttonPressed = false;
                 while (true)
                 {
                     time2 = DateTime.Now;
@@ -40,14 +33,10 @@ namespace hadek
                     if (Console.KeyAvailable)
                     {
                         ConsoleKeyInfo input = Console.ReadKey(true);
-                        ChangeDirection(input, ref buttonPressed);
+                        ChangeDirection(input);
                     }
                 }
-                if (m_snake.MoveAndCheckIfDead(m_screenWidth, m_screenHeight, m_movement, m_score))
-                {
-                    break;
-                }
-                Console.Clear();
+                m_gameOver = m_snake.MoveAndCheckIfDead(m_screenWidth, m_screenHeight, m_movement, m_score);
             }
             Console.SetCursorPosition(m_screenWidth / 5, m_screenHeight / 2);
             Console.WriteLine("Game over, Score: " + m_score);
@@ -73,42 +62,40 @@ namespace hadek
         }
 
 
-        private void ChangeDirection(ConsoleKeyInfo input, ref string buttonPressed)
+        private void ChangeDirection(ConsoleKeyInfo input)
         {
+            if (m_buttonPressed) return;
+            m_buttonPressed = true;
             switch (input.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (m_movement != "DOWN" && buttonPressed == "no")
+                    if (m_movement != Direction.Down)
                     {
-                        m_movement = "UP";
-                        buttonPressed = "yes";
+                        m_movement = Direction.Up;
                     }
                     break;
                 case ConsoleKey.DownArrow:
-                    if (m_movement != "UP" && buttonPressed == "no")
+                    if (m_movement != Direction.Up)
                     {
-                        m_movement = "DOWN";
-                        buttonPressed = "yes";
+                        m_movement = Direction.Down;
                     }
                     break;
                 case ConsoleKey.LeftArrow:
-                    if (m_movement != "RIGHT" && buttonPressed == "no")
+                    if (m_movement != Direction.Right)
                     {
-                        m_movement = "LEFT";
-                        buttonPressed = "yes";
+                        m_movement = Direction.Left;
                     }
                     break;
                 case ConsoleKey.RightArrow:
-                    if (m_movement != "LEFT" && buttonPressed == "no")
+                    if (m_movement != Direction.Left)
                     {
-                        m_movement = "RIGHT";
-                        buttonPressed = "yes";
+                        m_movement = Direction.Right;
                     }
                     break;
             }
         }
 
-        private string m_movement = "RIGHT";
+        private Direction m_movement = Direction.Right;
         private int m_score = 5;
         private bool m_gameOver;
         private readonly Random m_randNum;
@@ -116,5 +103,6 @@ namespace hadek
         private readonly int m_screenHeight;
         private Snake m_snake;
         private Berry m_berry;
+        private bool m_buttonPressed;
     }
 }
