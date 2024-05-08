@@ -45,7 +45,7 @@
             };
         }
 
-        public void DisplayRect(int xPos, int yPos, string rect, ConsoleColor? color = null)
+        public void DisplayHead(int xPos, int yPos, string rect, ConsoleColor? color = null)
         {
             Console.SetCursorPosition(xPos, yPos);
             if (color != null)

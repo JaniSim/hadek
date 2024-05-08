@@ -20,7 +20,7 @@
                 m_berry.YPos = m_randNum.Next(1, m_screenHeight - 2);
                 berryEaten = true;
             }
-            m_gui.DisplayRect(m_berry.XPos, m_berry.YPos, "■", m_berry.Color);
+            m_gui.DisplayHead(m_berry.XPos, m_berry.YPos, "■", m_berry.Color);
             return berryEaten;
         }
 

@@ -13,9 +13,9 @@
         {
             for (var i = 0; i < m_xBody.Count(); i++)
             {
-                m_gui.DisplayRect(m_xBody[i], m_yBody[i], "■");
+                m_gui.DisplayHead(m_xBody[i], m_yBody[i], "■");
             }
-            m_gui.DisplayRect(Head.XPos, Head.YPos, "■", Head.Color);
+            m_gui.DisplayHead(Head.XPos, Head.YPos, "■", Head.Color);
         }
 
         public bool MoveAndCheckIfDead(int screenWidth, int screenHeight, Direction movement, int score)
